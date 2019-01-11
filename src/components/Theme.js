@@ -85,7 +85,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   [data-reach-skip-link] {
-    color: cornflowerblue;
+    color: ${props => props.theme.primaryColor};
     text-decoration: none;
 
     &:focus {

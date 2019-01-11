@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import styled from 'styled-components'
 
-import WikiCategory from './WikiCategory'
+import WikiLink from './WikiLink'
 
 const WIKI_LIST_QUERY = graphql`
   query WIKI_LIST_QUERY {
@@ -16,6 +16,7 @@ const WIKI_LIST_QUERY = graphql`
             fileAbsolutePath
             frontmatter {
               title
+              category
             }
           }
         }
@@ -40,14 +41,19 @@ export const WikiList = props => {
     <CategoryGrid>
       <StaticQuery query={WIKI_LIST_QUERY}>
         {({ wikiList }) => {
-          const { group } = wikiList
-
-          return group.map(category => (
-            <section className='category' key={category.category}>
+          return wikiList.group.map(group => (
+            <section key={group.category} className='category'>
               <h2>
-                {category.category} ({category.totalCount})
+                {group.category} ({group.totalCount})
               </h2>
-              <WikiCategory {...category} />
+
+              <ul>
+                {group.edges.map(({ node }) => (
+                  <li key={node.id}>
+                    <WikiLink {...node} />
+                  </li>
+                ))}
+              </ul>
             </section>
           ))
         }}
