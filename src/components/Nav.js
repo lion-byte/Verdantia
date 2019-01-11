@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql, StaticQuery } from 'gatsby'
 import styled from 'styled-components'
 import { FaBars } from 'react-icons/fa'
+
+import { normalizeURL } from '../shared/url'
 
 const StyledNav = styled.nav`
   font-size: 1.25em;
@@ -35,7 +37,7 @@ const StyledNav = styled.nav`
     }
 
     &.active {
-      max-height: 15em;
+      max-height: 25em;
     }
 
     ul {
@@ -54,7 +56,7 @@ const StyledNav = styled.nav`
     }
   }
 
-  @media screen and (min-width: 30em) {
+  @media screen and (min-width: 55em) {
     .menu-button {
       display: none;
     }
@@ -76,6 +78,16 @@ const StyledNav = styled.nav`
 
       a {
         border: 0;
+      }
+    }
+  }
+`
+
+const CATEGORY_LIST_QUERY = graphql`
+  query CATEGORY_LIST_QUERY {
+    categories: allMarkdownRemark(sort: { fields: [frontmatter___title] }) {
+      group(field: frontmatter___category) {
+        category: fieldValue
       }
     }
   }
@@ -107,9 +119,18 @@ export class Nav extends React.Component {
             <li>
               <Link to='/'>Home</Link>
             </li>
-            <li>
-              <Link to='/category'>Categories</Link>
-            </li>
+
+            <StaticQuery query={CATEGORY_LIST_QUERY}>
+              {({ categories }) =>
+                categories.group.map(group => (
+                  <li key={group.category}>
+                    <Link to={`/${normalizeURL(group.category)}`}>
+                      {group.category}
+                    </Link>
+                  </li>
+                ))
+              }
+            </StaticQuery>
           </ul>
         </div>
       </StyledNav>

@@ -36,6 +36,14 @@ export const WikiPage = props => {
     data: { wiki }
   } = props
 
+  const category = normalizeURL(wiki.frontmatter.category)
+
+  const editUrl = `/admin/#/collections/${category}/entries/${filenameToURL(
+    wiki.fileAbsolutePath,
+    '.md'
+  )}`
+  const categoryUrl = `/${category}`
+
   return (
     <WikiEntry>
       <Helmet title={wiki.frontmatter.title} />
@@ -44,21 +52,16 @@ export const WikiPage = props => {
 
       <a
         className='edit-link'
-        href={`/admin/#/collections/wiki/entries/${filenameToURL(
-          wiki.fileAbsolutePath,
-          '.md'
-        )}`}
+        href={editUrl}
         target='_blank'
         rel='noopener noreferrer'
       >
-        Edit <FaPen />
+        <span>Edit</span>
+        <FaPen />
       </a>
 
       <p>
-        Category:{' '}
-        <Link to={`/category/${normalizeURL(wiki.frontmatter.category)}`}>
-          {wiki.frontmatter.category}
-        </Link>
+        Category: <Link to={categoryUrl}>{wiki.frontmatter.category}</Link>
       </p>
 
       <section

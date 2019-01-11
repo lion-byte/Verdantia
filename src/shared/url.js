@@ -1,3 +1,4 @@
+// @ts-check
 const { basename } = require('path')
 
 /**
@@ -15,6 +16,8 @@ const normalizeURL = name =>
 
 /**
  * Returns the name of the file without its extension.
+ * `/path/to/[filename].[ext]` --> `[filename]`
+ *
  * Prepares the filename to be used in a URL
  *
  * @param {string} filename
@@ -24,4 +27,22 @@ const normalizeURL = name =>
 const filenameToURL = (filename, extension) =>
   normalizeURL(basename(filename, extension))
 
-module.exports = { normalizeURL, filenameToURL }
+/**
+ * Create a path for the wiki entry.
+ *
+ * Format: `/[category]/[filename]`
+ *
+ * @param {object} info
+ * @param {string} info.fileAbsolutePath
+ * @param {object} info.frontmatter
+ * @param {string} info.frontmatter.category
+ * @returns {string}
+ */
+const pathToWikiURL = info => {
+  const filename = filenameToURL(info.fileAbsolutePath, '.md')
+  const category = normalizeURL(info.frontmatter.category)
+
+  return `/${category}/${filename}`
+}
+
+module.exports = { normalizeURL, filenameToURL, pathToWikiURL }

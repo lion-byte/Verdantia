@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 
-import WikiCategory from '../components/WikiCategory'
+import WikiLink from '../components/WikiLink'
 
 /**
  *
@@ -10,7 +10,7 @@ import WikiCategory from '../components/WikiCategory'
  * @param {object} props.wikiCategory
  * @param {Array<object>} props.wikiCategory.group
  */
-export const WikiCategoryPage = props => {
+export const CategoryPage = props => {
   const {
     data: {
       wikiCategory: { group }
@@ -27,15 +27,21 @@ export const WikiCategoryPage = props => {
         {category} ({totalCount})
       </h1>
 
-      <WikiCategory category={category} edges={edges} />
+      <ul>
+        {edges.map(({ node }) => (
+          <li key={node.id}>
+            <WikiLink {...node} />
+          </li>
+        ))}
+      </ul>
     </React.Fragment>
   )
 }
 
-export default WikiCategoryPage
+export default CategoryPage
 
 export const query = graphql`
-  query WIKI_CATEGORY_PAGE_QUERY($category: String!) {
+  query CATEGORY_PAGE_QUERY($category: String!) {
     wikiCategory: allMarkdownRemark(
       sort: { fields: [frontmatter___title] }
       filter: { frontmatter: { category: { eq: $category } } }
@@ -49,6 +55,7 @@ export const query = graphql`
             fileAbsolutePath
             frontmatter {
               title
+              category
             }
           }
         }
