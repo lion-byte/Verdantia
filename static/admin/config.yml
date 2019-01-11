@@ -12,7 +12,7 @@ collections:
     label: 'Characters'
     label_singular: 'Character'
     description: 'Notable characters of the land'
-    folder: 'wiki/entries/characters'
+    folder: 'wiki/characters'
     create: true
     delete: false
     extension: 'md'
@@ -38,7 +38,7 @@ collections:
     label: 'Classes'
     label_singular: 'Class'
     description: 'Various classes and their unique abilities'
-    folder: 'wiki/entries/classes'
+    folder: 'wiki/classes'
     create: true
     delete: false
     extension: 'md'
@@ -64,7 +64,7 @@ collections:
     label: 'Factions'
     label_singular: 'Faction'
     description: 'Various organizations and groups united for shared goals'
-    folder: 'wiki/entries/factions'
+    folder: 'wiki/factions'
     create: true
     delete: false
     extension: 'md'
@@ -90,7 +90,7 @@ collections:
     label: 'Locations'
     label_singular: 'Location'
     description: 'Points of interests scattered throughout Verdantia'
-    folder: 'wiki/entries/locations'
+    folder: 'wiki/locations'
     create: true
     delete: false
     extension: 'md'
@@ -116,7 +116,7 @@ collections:
     label: 'Main'
     label_singular: 'Main'
     description: 'Main pages for the site'
-    folder: 'wiki/entries/main'
+    folder: 'wiki/main'
     create: true
     delete: false
     extension: 'md'
@@ -142,7 +142,7 @@ collections:
     label: 'Monsters'
     label_singular: 'Monster'
     description: 'Creatures who serve only their own desire and instincts'
-    folder: 'wiki/entries/monsters'
+    folder: 'wiki/monsters'
     create: true
     delete: false
     extension: 'md'
@@ -168,7 +168,7 @@ collections:
     label: 'Races'
     label_singular: 'Race'
     description: 'The denizens of the realm of Verdantia'
-    folder: 'wiki/entries/races'
+    folder: 'wiki/races'
     create: true
     delete: false
     extension: 'md'
